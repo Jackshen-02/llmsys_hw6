@@ -162,7 +162,7 @@ def parse_args():
                         help="If > 0, use LoRA for efficient training.")
     parser.add_argument("--lora_module_name",
                         type=str,
-                        default="decoder.layers.",
+                        default="model.layers.",
                         help="The scope of LoRA.")
     parser.add_argument('--only_optimize_lora',
                         action='store_true',
@@ -251,18 +251,18 @@ def main():
                             ds_config,
                             dropout=args.dropout)
 
-    if args.compute_fp32_loss:
-        print_rank_0(
-            f"Using model {model.__class__.__name__} with loss in fp32",
-            args.global_rank)
-        causal_lm_model_to_fp32_loss(model)
-
     if args.lora_dim > 0:
         model = convert_linear_layer_to_lora(model, args.lora_module_name,
                                              args.lora_dim)
         if args.only_optimize_lora:
             model = only_optimize_lora_parameters(model)
             model = make_model_gradient_checkpointing_compatible(model)
+
+    if args.compute_fp32_loss or (args.dtype == "fp16" and args.lora_dim > 0):
+        print_rank_0(
+            f"Using model {model.__class__.__name__} with loss in fp32",
+            args.global_rank)
+        causal_lm_model_to_fp32_loss(model)
 
     # Prepare the data
     train_phase = 1

@@ -10,6 +10,7 @@ if [ "$ZERO_STAGE" == "" ]; then
 fi
 mkdir -p $OUTPUT
 
+# TODO: modify the args to start training for LoRA
 deepspeed main.py \
    --data_split 2,4,4 \
    --model_name_or_path meta-llama/Llama-2-7b-hf \

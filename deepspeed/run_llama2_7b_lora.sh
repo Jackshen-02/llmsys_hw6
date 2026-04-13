@@ -6,7 +6,7 @@
 ZERO_STAGE=$1
 OUTPUT=./output_llama2_7b_lora
 if [ "$ZERO_STAGE" == "" ]; then
-    ZERO_STAGE=3
+    ZERO_STAGE=2
 fi
 mkdir -p $OUTPUT
 
@@ -31,5 +31,5 @@ deepspeed main.py \
    --output_dir $OUTPUT \
    --lora_dim 8 \
    --only_optimize_lora \
-   --lora_learning_rate 1e-6 \
+   --lora_learning_rate 1e-5 \
    &> $OUTPUT/training.log

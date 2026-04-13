@@ -6,7 +6,7 @@
 ZERO_STAGE=$1
 OUTPUT=./output_llama2_7b_lora
 if [ "$ZERO_STAGE" == "" ]; then
-    ZERO_STAGE=2
+    ZERO_STAGE=3
 fi
 mkdir -p $OUTPUT
 
@@ -17,7 +17,7 @@ deepspeed main.py \
    --per_device_train_batch_size 1 \
    --per_device_eval_batch_size 1 \
    --max_seq_len 128 \
-   --learning_rate 1e-5 \
+   --learning_rate 1e-20 \
    --weight_decay 0. \
    --num_train_epochs 2  \
    --gradient_accumulation_steps 1 \
@@ -31,5 +31,5 @@ deepspeed main.py \
    --output_dir $OUTPUT \
    --lora_dim 8 \
    --only_optimize_lora \
-   --lora_learning_rate 1e-5 \
+   --lora_learning_rate 1e-20 \
    &> $OUTPUT/training.log

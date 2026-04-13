@@ -34,6 +34,7 @@ def main():
         model_path=model_path,
         dp_size=2,
         mem_fraction_static=0.8,
+        attention_backend="dual_chunk_flash_attn",
     )
 
     prompts = []

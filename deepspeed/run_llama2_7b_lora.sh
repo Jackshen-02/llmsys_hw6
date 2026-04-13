@@ -31,5 +31,5 @@ deepspeed main.py \
    --output_dir $OUTPUT \
    --lora_dim 8 \
    --only_optimize_lora \
-   --lora_learning_rate 1e-5 \
+   --lora_learning_rate 1e-6 \
    &> $OUTPUT/training.log

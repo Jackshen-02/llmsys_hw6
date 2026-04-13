@@ -27,15 +27,10 @@ def get_train_ds_config(offload,
     device = "cpu" if offload else "none"
     if dtype == "fp16":
         data_type = "fp16"
-        # Use a lower initial dynamic loss scale to reduce early FP16 overflows
-        # on older GPUs such as V100.
+        # Use a fixed low loss scale for stability on older GPUs such as V100.
         dtype_config = {
             "enabled": True,
-            "loss_scale": 0,
-            "initial_scale_power": 8,
-            "loss_scale_window": 1000,
-            "hysteresis": 2,
-            "min_loss_scale": 1,
+            "loss_scale": 1,
         }
     elif dtype == "bf16":
         data_type = "bfloat16"

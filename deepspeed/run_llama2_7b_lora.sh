@@ -16,11 +16,11 @@ deepspeed main.py \
    --model_name_or_path meta-llama/Llama-2-7b-hf \
    --per_device_train_batch_size 1 \
    --per_device_eval_batch_size 1 \
-   --max_seq_len 128 \
-   --learning_rate 1e-5 \
+   --max_seq_len 256 \
+   --learning_rate 9.65e-6 \
    --weight_decay 0. \
    --num_train_epochs 2  \
-   --gradient_accumulation_steps 1 \
+   --gradient_accumulation_steps 4 \
    --lr_scheduler_type cosine \
    --num_warmup_steps 0 \
    --seed 1234 \
@@ -31,5 +31,5 @@ deepspeed main.py \
    --output_dir $OUTPUT \
    --lora_dim 8 \
    --only_optimize_lora \
-   --lora_learning_rate 1e-5 \
+   --lora_learning_rate 1e-4 \
    &> $OUTPUT/training.log

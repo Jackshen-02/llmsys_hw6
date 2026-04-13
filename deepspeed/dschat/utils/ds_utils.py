@@ -27,11 +27,7 @@ def get_train_ds_config(offload,
     device = "cpu" if offload else "none"
     if dtype == "fp16":
         data_type = "fp16"
-        # Use a fixed low loss scale for stability on older GPUs such as V100.
-        dtype_config = {
-            "enabled": True,
-            "loss_scale": 1,
-        }
+        dtype_config = {"enabled": True, "loss_scale_window": 100}
     elif dtype == "bf16":
         data_type = "bfloat16"
         dtype_config = {"enabled": True}

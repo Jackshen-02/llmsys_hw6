@@ -20,7 +20,7 @@ deepspeed main.py \
    --learning_rate 9.65e-6 \
    --weight_decay 0. \
    --num_train_epochs 2  \
-   --gradient_accumulation_steps 8 \
+   --gradient_accumulation_steps 1 \
    --lr_scheduler_type cosine \
    --num_warmup_steps 0 \
    --seed 1234 \

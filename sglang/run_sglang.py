@@ -35,6 +35,7 @@ def main():
         dp_size=2,
         mem_fraction_static=0.8,
         attention_backend="dual_chunk_flash_attn",
+        disable_piecewise_cuda_graph=True,
     )
 
     prompts = []

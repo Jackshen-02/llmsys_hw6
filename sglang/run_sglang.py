@@ -33,7 +33,7 @@ def main():
     llm = sgl.Engine(
         model_path=model_path,
         dp_size=2,
-        mem_fraction_static=0.8,
+        mem_fraction_static=0.7,
         attention_backend="dual_chunk_flash_attn",
         disable_piecewise_cuda_graph=True,
     )
@@ -43,12 +43,12 @@ def main():
     for i in dataset:
         prompts.append(i['instruction'])
 
-    sampling_params = {"temperature": 0.7, "top_p": 0.95, "max_new_tokens": 256}
+    sampling_params = {"temperature": 0.7, "top_p": 0.95, "max_new_tokens": 128}
 
     outputs = []
 
     # TODO: you may want to explore different batch_size
-    batch_size = 32
+    batch_size = 8
 
     from tqdm import tqdm
     for i in tqdm(range(0, len(prompts), batch_size)):

@@ -25,7 +25,7 @@ deepspeed main.py \
    --num_warmup_steps 0 \
    --seed 1234 \
    --gradient_checkpointing \
-   --dtype fp16 \
+   --dtype bf16 \
    --zero_stage $ZERO_STAGE \
    --deepspeed \
    --output_dir $OUTPUT \
